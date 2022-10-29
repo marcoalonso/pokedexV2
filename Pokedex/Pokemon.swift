@@ -8,8 +8,7 @@
 import Foundation
 
 
-struct Pokemon: Codable, Identifiable {
-    let id: Int
+struct Pokemon: Codable {
     let name: String
     let attack: Int
     let defense: Int
@@ -17,3 +16,9 @@ struct Pokemon: Codable, Identifiable {
     let imageUrl: String
     let type: String
 }
+
+//struct Lista: Codable {
+//    var listaPokemon : [String: [AnyObject]]
+//    = ["null," : [Pokemon].self]
+//}
+

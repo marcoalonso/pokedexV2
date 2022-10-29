@@ -23,8 +23,17 @@ class CollectionViewController: UIViewController {
         collectionViewPokemon.dataSource = self
         
         buscarPokemon()
+//        loadPokemon()
         
     }
+    
+    
+    @IBAction func cambiarDireccion(_ sender: UIBarButtonItem) {
+        if let layout = collectionViewPokemon.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+    }
+    
     
     
     func buscarPokemon(){
@@ -49,7 +58,20 @@ class CollectionViewController: UIViewController {
             }
         }
         tarea.resume()
-    }
+    }//buscarPokemon
+    
+//    func loadPokemon(){
+//
+//        let req = AF.request("https://pokedex-bb36f.firebaseio.com/pokemon.json")
+//
+//        req.responseJSON { data in
+//            print(data)
+//            if let dataSinNull = data.parseData(quitarString: "null,") {
+//
+//            }
+//        }
+//
+//    }
 
 }
 
@@ -57,7 +79,6 @@ extension Data {
     func parseData(quitarString palabra: String) -> Data? {
         let dataAsString = String(data: self, encoding: .utf8)
         let parseDataString = dataAsString?.replacingOccurrences(of: palabra, with: "")
-        
         guard let data = parseDataString?.data(using: .utf8) else { return nil }
         return data
     }
@@ -74,10 +95,12 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
         if let url = URL(string: pokemons[indexPath.row].imageUrl) {
             celda.imagenPokemon.kf.setImage(with: url)
         }
-        
         celda.nombrePokemon.text = pokemons[indexPath.row].name
-        
         return celda
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "verDetalle", sender: self)
     }
 }
 
